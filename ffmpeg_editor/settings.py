@@ -137,4 +137,4 @@ ALLOWED_HOSTS = ['167.99.150.176', 'localhost', '127.0.0.1']
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID', '')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY', '')
 AWS_STORAGE_BUCKET_NAME = 'ffmpeg-video-editor-bucket'
-AWS_S3_REGION_NAME = 'us-east-1'  # Make sure this matches your actual AWS region
+AWS_S3_REGION_NAME = 'us-east-2'  # Change this to match your Lambda function's region
