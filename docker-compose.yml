@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    command: gunicorn ffmpeg_editor.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgres://postgres.wnnidczryezjovbuabwm:Zc126922211zc!@aws-0-us-east-1.pooler.supabase.com:6543/postgres
