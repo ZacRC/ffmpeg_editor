@@ -8,7 +8,23 @@
 <body>
     <h1>Welcome to your Dashboard</h1>
     <p>Hello, {{ request.user.email }}!</p>
-    <p>This is where you can add your video editing features using FFmpeg.</p>
+    
+    <h2>Upload Video to Mute</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="video" accept="video/*" required>
+        <button type="submit">Upload and Mute Video</button>
+    </form>
+
+    {% if muted_video_url %}
+    <h2>Processed Video</h2>
+    <video width="320" height="240" controls>
+        <source src="{{ muted_video_url }}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <a href="{{ muted_video_url }}" download>Download Muted Video</a>
+    {% endif %}
+
     <a href="{% url 'logout' %}">Logout</a>
 </body>
 </html>

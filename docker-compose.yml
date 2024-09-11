@@ -10,3 +10,5 @@ services:
       - "80:8000"
     environment:
       - DATABASE_URL=postgres://postgres.wnnidczryezjovbuabwm:Zc126922211zc!@aws-0-us-east-1.pooler.supabase.com:6543/postgres
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
