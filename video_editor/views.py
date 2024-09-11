@@ -3,7 +3,6 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from .forms import CustomUserCreationForm, LoginForm
 from django.conf import settings
-from botocore.exceptions import ClientError
 import boto3
 import json
 
@@ -43,16 +42,23 @@ def dashboard(request):
     if request.method == 'POST' and request.FILES.get('video'):
         video_file = request.FILES['video']
         
-        # Upload to S3
-        s3_client = boto3.client('s3')
+        # Configure AWS clients with explicit region
+        s3_client = boto3.client('s3',
+                                 aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
+                                 aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
+                                 region_name=settings.AWS_S3_REGION_NAME)
+        
+        lambda_client = boto3.client('lambda',
+                                     aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
+                                     aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
+                                     region_name=settings.AWS_S3_REGION_NAME)
+        
         bucket_name = settings.AWS_STORAGE_BUCKET_NAME
         s3_key = f'uploads/{request.user.id}/{video_file.name}'
         
         try:
             s3_client.upload_fileobj(video_file, bucket_name, s3_key)
             
-            # Invoke Lambda function
-            lambda_client = boto3.client('lambda')
             lambda_payload = {
                 'bucket': bucket_name,
                 'key': s3_key,
@@ -68,7 +74,7 @@ def dashboard(request):
             result = json.loads(response['Payload'].read())
             muted_video_url = result.get('muted_video_url')
             
-        except ClientError as e:
+        except Exception as e:
             print(f"Error: {e}")
     
     return render(request, 'dashboard.html', {'muted_video_url': muted_video_url})

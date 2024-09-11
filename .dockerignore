@@ -13,11 +13,8 @@
 .DS_Store
 .git/
 .gitignore
-.env
 .venv
-env/
 venv/
 ENV/
-env.bak/
 venv.bak/
 staticfiles
