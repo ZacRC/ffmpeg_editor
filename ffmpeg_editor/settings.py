@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-^qgbw23xdfzv^)#irul!^(+riyhbg=$+x8ho%)5r+hucz(^!m@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['167.99.150.176', 'localhost', '127.0.0.1', 'your-domain.com']
 
 
 # Application definition
@@ -132,4 +132,4 @@ AUTH_USER_MODEL = 'video_editor.CustomUser'
 
 # Add these lines at the end of the file
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-ALLOWED_HOSTS = ['167.99.150.176', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['167.99.150.176', 'localhost', '127.0.0.1', 'your-domain.com']
